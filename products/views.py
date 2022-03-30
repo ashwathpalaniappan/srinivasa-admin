@@ -29,7 +29,7 @@ def thankyou(request):
     return render(request,'products/thankyou.html')
 
 def oldorders(request):
-    res = requests.get('http://localhost:7000/backend/getOldOrders')
+    res = requests.get('https://srinivasa-admin.herokuapp.com/backend/getOldOrders')
     orders = res.json()
     request.session['old_orders'] = orders
     data = {}
@@ -37,7 +37,7 @@ def oldorders(request):
     return render(request,'products/currorders.html', data)
 
 def currorders(request):
-    res = requests.get('http://localhost:7000/backend/getCurrOrders')
+    res = requests.get('https://srinivasa-admin.herokuapp.com/backend/getCurrOrders')
     orders = res.json()
     request.session['curr_orders'] = orders
     data = {}
@@ -45,7 +45,7 @@ def currorders(request):
     return render(request,'products/currorders.html', data)
 
 def delorders(request):
-    res = requests.get('http://localhost:7000/backend/getDelOrders')
+    res = requests.get('https://srinivasa-admin.herokuapp.com/backend/getDelOrders')
     orders = res.json()
     request.session['del_orders'] = orders
     data = {}
@@ -60,12 +60,12 @@ def order(request,orderid):
         'courier': request.POST['courier'],
         'id': orderid
         }
-        api_url = 'http://localhost:7000/backend/delivery'
+        api_url = 'https://srinivasa-admin.herokuapp.com/backend/delivery'
         r = requests.post(url=api_url, json=json_data)     
 
         return redirect('/oldorders')
 
-    api_url1 = 'http://localhost:7000/backend/findorder'
+    api_url1 = 'https://srinivasa-admin.herokuapp.com/backend/findorder'
     resp = requests.post(url=api_url1, json={'id': orderid})
     order_item = resp.json()
     
@@ -75,7 +75,7 @@ def cancelorder(request,orderid):
     json_data = {
     'id': orderid
     }
-    api_url = 'http://localhost:7000/backend/cancelorder'
+    api_url = 'https://srinivasa-admin.herokuapp.com/backend/cancelorder'
     res = requests.post(url=api_url, json=json_data)
     order = res.json()
     payment_id = order['payment']['payment_id']
@@ -89,7 +89,7 @@ def changeimg(request):
         'id': request.POST['id'],
         'url': request.POST['url'],
         }
-        api_url = 'http://localhost:7000/backend/changeImage'
+        api_url = 'https://srinivasa-admin.herokuapp.com/backend/changeImage'
         r = requests.post(url=api_url, json=json_data)
         return redirect('/')
 
