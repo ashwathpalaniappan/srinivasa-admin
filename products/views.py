@@ -1,5 +1,3 @@
-from pickle import NONE, TRUE
-from tkinter import FALSE
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
